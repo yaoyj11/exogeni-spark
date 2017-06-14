@@ -103,7 +103,7 @@ public class Example {
       try{
         System.setProperty("java.security.policy","~/project/exo-geni/ahabserver/allow.policy");
       //  Slice spark=createSparkSlice(sliceName,workernum);
-        Slice spark=createPriorityNetwork(sliceName,workernum);
+        Slice spark=createSparkSlice(sliceName,workernum);
         //Slice spark=Slice.loadManifestFile(sliceProxy, sliceName);
         //copyDir2Slice(spark,"/home/yaoyj11/project/spark", "~/","spark.tar.gz");
         copyFile2Slice(spark,"/home/yaoyj11/project/spark.tar.gz","~/spark.tar.gz",privkey);
@@ -139,7 +139,7 @@ public class Example {
     }
   }
 
-  public static Slice createPriorityNetwork(String sliceName,int num){
+  public static Slice createSparkSlice(String sliceName,int num){
 		System.out.println("ndllib TestDriver: START");
 		//Main Example Code
 		
@@ -162,7 +162,7 @@ public class Example {
 	//	s.commit();
 		boolean sliceActive = false;
 		
-    PriorityNetwork net=PriorityNetwork.create(s,sliceName,controllerDomain,100000l);
+    PriorityNetwork net=PriorityNetwork.create(s,sliceName,controllerDomain,1000000000l);
     for(int i=0;i<1;i++){
       String domain="";
       domain=domains.get(0);
@@ -178,45 +178,6 @@ public class Example {
     s.commit();
     waitTillActive(s);
 		System.out.println("Done");
-    return s;
-  }
-
-  private static Slice createSparkSlice(String sliceName,int num){
-		System.out.println("ndllib TestDriver: START");
-		
-		Slice s = Slice.create(sliceProxy, sctx, sliceName);
-		
-		String nodeImageShortName="Ubuntu 14.04 Docker";
-		String nodeImageURL ="http://geni-orca.renci.org/owl/5e2190c1-09f1-4c48-8ed6-dacae6b6b435#Ubuntu+14.0.4+Docker";//http://geni-images.renci.org/images/standard/ubuntu/ub1304-ovs-opendaylight-v1.0.0.xml
-		String nodeImageHash ="b4ef61dbd993c72c5ac10b84650b33301bbf6829";
-		String nodeNodeType="XO Extra Large";
-		//String nodePostBootScript="apt-get update;apt-get -y  install quagga\n"
-    //  +"sed -i -- 's/zebra=no/zebra=yes/g' /etc/quagga/daemons\n"
-    //  +"sed -i -- 's/ospfd=no/ospfd=yes/g' /etc/quagga/daemons\n";
-    ArrayList<ComputeNode> nodelist=new ArrayList<ComputeNode>();
-    ArrayList<Network> netlist=new ArrayList<Network>();
-    ArrayList<Network> stitchlist=new ArrayList<Network>();
-    for(int i=0;i<=num;i++){
-		
-      ComputeNode node0 = s.addComputeNode("c"+String.valueOf(i));
-      node0.setImage(nodeImageURL,nodeImageHash,nodeImageShortName);
-      node0.setNodeType(nodeNodeType);
-      node0.setDomain(domains.get(i));
-      nodelist.add(node0);
-    }
-    //or add bandwdith for link here
-    //Network net2 = s.addBroadcastLink("clink",bw);
-    Network net2 = s.addBroadcastLink("clink");
-
-    for(int i=0;i<=num;i++){
-      InterfaceNode2Net ifaceNode1 = (InterfaceNode2Net) net2.stitch(nodelist.get(i));
-      ifaceNode1.setIpAddress("192.168.1"+".i+1");
-      ifaceNode1.setNetmask("255.255.255.0");
-      netlist.add(net2);
-    }
-    s.commit();
-    waitTillActive(s);
-    //absolute path to file
     return s;
   }
 
