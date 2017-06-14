@@ -1,0 +1,133 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+AppendFile	slice/Example.java	/^  private static void  AppendFile(String filepath, String data){$/;"	m	class:Example	file:	signature:(String filepath, String data)
+ERROR	ssh/Scp.java	/^	private static final int ERROR = 1;$/;"	f	class:Scp	file:
+Example	slice/Example.java	/^  public Example()throws RemoteException{}$/;"	m	class:Example	signature:()
+Example	slice/Example.java	/^public class Example {$/;"	c
+Exec	utils/Exec.java	/^public class Exec{$/;"	c
+FATAL_ERROR	ssh/Scp.java	/^	private static final int FATAL_ERROR = 2;$/;"	f	class:Scp	file:
+Jscp	ssh/Jscp.java	/^public class Jscp {$/;"	c
+MyUserInfo	utils/Exec.java	/^  public static class MyUserInfo implements UserInfo, UIKeyboardInteractive{$/;"	c	class:Exec
+MyUserInfo	utils/ScpTo.java	/^  public static class MyUserInfo implements UserInfo, UIKeyboardInteractive{$/;"	c	class:ScpTo
+MyUserInfo	utils/UserAuthPubKey.java	/^  public static class MyUserInfo implements UserInfo, UIKeyboardInteractive{$/;"	c	class:UserAuthPubKey
+NewExec	ssh/NewExec.java	/^public class NewExec {$/;"	c
+RequestResource	slice/Example.java	/^	private static final String RequestResource = null;$/;"	f	class:Example	file:
+SafePost	utils/SafePost.java	/^public class SafePost{$/;"	c
+Scp	ssh/Scp.java	/^public class Scp {$/;"	c
+Scp	utils/ScpTo.java	/^  public static void Scp(String lfile,String user, String host,String rfile,String privkey){$/;"	m	class:ScpTo	signature:(String lfile,String user, String host,String rfile,String privkey)
+ScpTo	utils/ScpTo.java	/^public class ScpTo{$/;"	c
+SecureContext	ssh/SecureContext.java	/^	public SecureContext(String pUsername, String pHost) {$/;"	m	class:SecureContext	signature:(String pUsername, String pHost)
+SecureContext	ssh/SecureContext.java	/^	public SecureContext(String pUsername, String pHost, int pPort) {$/;"	m	class:SecureContext	signature:(String pUsername, String pHost, int pPort)
+SecureContext	ssh/SecureContext.java	/^public class SecureContext {$/;"	c
+TarAndGzip	gzip/TarAndGzip.java	/^public class TarAndGzip {$/;"	c
+UserAuthPubKey	utils/UserAuthPubKey.java	/^public class UserAuthPubKey{$/;"	c
+auth	utils/UserAuthPubKey.java	/^  public static void auth(String host){$/;"	m	class:UserAuthPubKey	signature:(String host)
+checkAck	ssh/Scp.java	/^	static int checkAck(InputStream in) throws IOException {$/;"	m	class:Scp	signature:(InputStream in)
+checkAck	utils/ScpTo.java	/^  static int checkAck(InputStream in) throws IOException{$/;"	m	class:ScpTo	signature:(InputStream in)
+configureSpark	slice/Example.java	/^  private static void configureSpark(Slice s, int num){$/;"	m	class:Example	file:	signature:(Slice s, int num)
+controllerUrl	slice/Example.java	/^  private static String controllerUrl;$/;"	f	class:Example	file:
+copyDir2Slice	slice/Example.java	/^  private static void copyDir2Slice(Slice s, String ldir, String rdir,String tarfile){$/;"	m	class:Example	file:	signature:(Slice s, String ldir, String rdir,String tarfile)
+copyFile2Slice	slice/Example.java	/^  private static void copyFile2Slice(Slice s, String lfile, String rfile,String privkey){$/;"	m	class:Example	file:	signature:(Slice s, String lfile, String rfile,String privkey)
+createPriorityNetwork	slice/Example.java	/^  public static Slice createPriorityNetwork(String sliceName,int num){$/;"	m	class:Example	signature:(String sliceName,int num)
+createSession	ssh/SecureContext.java	/^	public Session createSession() throws JSchException {$/;"	m	class:SecureContext	signature:()
+createSparkSlice	slice/Example.java	/^  private static Slice createSparkSlice(String sliceName,int num){$/;"	m	class:Example	file:	signature:(String sliceName,int num)
+debugLine	ssh/Jscp.java	/^	private static String debugLine(String pSrcDir, String pRemoteUser,$/;"	m	class:Jscp	file:	signature:(String pSrcDir, String pRemoteUser, String pRemoteHost, String pRemotePath, File pPrivateKeyFilePath)
+domains	slice/Example.java	/^	public static final ArrayList<String> domains;$/;"	f	class:Example
+exec	ssh/Jscp.java	/^	public static void exec(SecureContext pContext, String pSrcDir,$/;"	m	class:Jscp	signature:(SecureContext pContext, String pSrcDir, String pRemotePath, List<String> pIgnores)
+exec	ssh/NewExec.java	/^	public static String exec(SecureContext pContext, String pCommand)$/;"	m	class:NewExec	signature:(SecureContext pContext, String pCommand)
+exec	ssh/Scp.java	/^	public static void exec(final SecureContext pContext, String pLocalFile,$/;"	m	class:Scp	signature:(final SecureContext pContext, String pLocalFile, String pRemoteFile)
+exec	utils/Exec.java	/^  public static void exec(String cmd){$/;"	m	class:Exec	signature:(String cmd)
+folder	gzip/TarAndGzip.java	/^	public static void folder(File pFolder) throws IOException {$/;"	m	class:TarAndGzip	signature:(File pFolder)
+folder	gzip/TarAndGzip.java	/^	public static void folder(File pFolder, List<String> pIgnores)$/;"	m	class:TarAndGzip	signature:(File pFolder, List<String> pIgnores)
+gbc	utils/Exec.java	/^    final GridBagConstraints gbc = $/;"	f	class:Exec.MyUserInfo
+gbc	utils/ScpTo.java	/^    final GridBagConstraints gbc = $/;"	f	class:ScpTo.MyUserInfo
+gbc	utils/UserAuthPubKey.java	/^    final GridBagConstraints gbc = $/;"	f	class:UserAuthPubKey.MyUserInfo
+getConfig	ssh/SecureContext.java	/^	private Properties getConfig() {$/;"	m	class:SecureContext	file:	signature:()
+getHost	ssh/SecureContext.java	/^	public String getHost() {$/;"	m	class:SecureContext	signature:()
+getMessage	utils/SafePost.java	/^  private static String getMessage(String message){$/;"	m	class:SafePost	file:	signature:(String message)
+getNetworkInfo	slice/Example.java	/^  public static void getNetworkInfo(Slice s){$/;"	m	class:Example	signature:(Slice s)
+getPassphrase	utils/Exec.java	/^    public String getPassphrase(){ return null; }$/;"	m	class:Exec.MyUserInfo	signature:()
+getPassphrase	utils/ScpTo.java	/^    public String getPassphrase(){ return null; }$/;"	m	class:ScpTo.MyUserInfo	signature:()
+getPassphrase	utils/UserAuthPubKey.java	/^    public String getPassphrase(){ return passphrase; }$/;"	m	class:UserAuthPubKey.MyUserInfo	signature:()
+getPassword	ssh/SecureContext.java	/^	public String getPassword() {$/;"	m	class:SecureContext	signature:()
+getPassword	utils/Exec.java	/^    public String getPassword(){ return passwd; }$/;"	m	class:Exec.MyUserInfo	signature:()
+getPassword	utils/ScpTo.java	/^    public String getPassword(){ return passwd; }$/;"	m	class:ScpTo.MyUserInfo	signature:()
+getPassword	utils/UserAuthPubKey.java	/^    public String getPassword(){ return null; }$/;"	m	class:UserAuthPubKey.MyUserInfo	signature:()
+getPort	ssh/SecureContext.java	/^	public int getPort() {$/;"	m	class:SecureContext	signature:()
+getPrivateKeyFile	ssh/SecureContext.java	/^	public File getPrivateKeyFile() {$/;"	m	class:SecureContext	signature:()
+getSlice	slice/Example.java	/^	public static Slice getSlice(ISliceTransportAPIv1 sliceProxy, String sliceName){$/;"	m	class:Example	signature:(ISliceTransportAPIv1 sliceProxy, String sliceName)
+getSliceProxy	slice/Example.java	/^	public static ISliceTransportAPIv1 getSliceProxy(String pem, String key, String controllerUrl){$/;"	m	class:Example	signature:(String pem, String key, String controllerUrl)
+getUserInfo	ssh/SecureContext.java	/^	private UserInfo getUserInfo() {$/;"	m	class:SecureContext	file:	signature:()
+getUsername	ssh/SecureContext.java	/^	public String getUsername() {$/;"	m	class:SecureContext	signature:()
+host	ssh/SecureContext.java	/^	private String host;$/;"	f	class:SecureContext	file:
+isTrustAllHosts	ssh/SecureContext.java	/^	public boolean isTrustAllHosts() {$/;"	m	class:SecureContext	signature:()
+keyLocation	slice/Example.java	/^	private static String keyLocation;$/;"	f	class:Example	file:
+log	ssh/Jscp.java	/^	private static final Logger log = Logger.getLogger(Jscp.class);$/;"	f	class:Jscp	file:
+log	ssh/Scp.java	/^	private static final Logger log = Logger.getLogger(Scp.class);$/;"	f	class:Scp	file:
+main	slice/Example.java	/^	public static void main(String [] args){$/;"	m	class:Example	signature:(String [] args)
+panel	utils/Exec.java	/^    private Container panel;$/;"	f	class:Exec.MyUserInfo	file:
+panel	utils/ScpTo.java	/^    private Container panel;$/;"	f	class:ScpTo.MyUserInfo	file:
+panel	utils/UserAuthPubKey.java	/^    private Container panel;$/;"	f	class:UserAuthPubKey.MyUserInfo	file:
+passphrase	utils/UserAuthPubKey.java	/^    String passphrase;$/;"	f	class:UserAuthPubKey.MyUserInfo
+passphraseField	utils/UserAuthPubKey.java	/^    JTextField passphraseField=(JTextField)new JPasswordField(20);$/;"	f	class:UserAuthPubKey.MyUserInfo
+passwd	utils/Exec.java	/^    String passwd;$/;"	f	class:Exec.MyUserInfo
+passwd	utils/ScpTo.java	/^    String passwd;$/;"	f	class:ScpTo.MyUserInfo
+password	ssh/SecureContext.java	/^	private String password;$/;"	f	class:SecureContext	file:
+passwordField	utils/Exec.java	/^    JTextField passwordField=(JTextField)new JPasswordField(20);$/;"	f	class:Exec.MyUserInfo
+passwordField	utils/ScpTo.java	/^    JTextField passwordField=(JTextField)new JPasswordField(20);$/;"	f	class:ScpTo.MyUserInfo
+pemLocation	slice/Example.java	/^	private static String pemLocation;$/;"	f	class:Example	file:
+port	ssh/SecureContext.java	/^        private int port;$/;"	f	class:SecureContext	file:
+postSafeStatements	utils/SafePost.java	/^  public static String postSafeStatements(String safeserver,String requestName,String principal,String[] othervalues){$/;"	m	class:SafePost	signature:(String safeserver,String requestName,String principal,String[] othervalues)
+privateKeyFile	ssh/SecureContext.java	/^	private File privateKeyFile;$/;"	f	class:SecureContext	file:
+privkey	slice/Example.java	/^  private static String privkey="~\/.ssh\/id_rsa";$/;"	f	class:Example	file:
+processIgnores	gzip/TarAndGzip.java	/^	private static void processIgnores(String pName, List<String> pIgnores) {$/;"	m	class:TarAndGzip	file:	signature:(String pName, List<String> pIgnores)
+promptKeyboardInteractive	utils/Exec.java	/^    public String[] promptKeyboardInteractive(String destination,$/;"	m	class:Exec.MyUserInfo	signature:(String destination, String name, String instruction, String[] prompt, boolean[] echo)
+promptKeyboardInteractive	utils/ScpTo.java	/^    public String[] promptKeyboardInteractive(String destination,$/;"	m	class:ScpTo.MyUserInfo	signature:(String destination, String name, String instruction, String[] prompt, boolean[] echo)
+promptKeyboardInteractive	utils/UserAuthPubKey.java	/^    public String[] promptKeyboardInteractive(String destination,$/;"	m	class:UserAuthPubKey.MyUserInfo	signature:(String destination, String name, String instruction, String[] prompt, boolean[] echo)
+promptPassphrase	utils/Exec.java	/^    public boolean promptPassphrase(String message){ return true; }$/;"	m	class:Exec.MyUserInfo	signature:(String message)
+promptPassphrase	utils/ScpTo.java	/^    public boolean promptPassphrase(String message){ return true; }$/;"	m	class:ScpTo.MyUserInfo	signature:(String message)
+promptPassphrase	utils/UserAuthPubKey.java	/^    public boolean promptPassphrase(String message){$/;"	m	class:UserAuthPubKey.MyUserInfo	signature:(String message)
+promptPassword	utils/Exec.java	/^    public boolean promptPassword(String message){$/;"	m	class:Exec.MyUserInfo	signature:(String message)
+promptPassword	utils/ScpTo.java	/^    public boolean promptPassword(String message){$/;"	m	class:ScpTo.MyUserInfo	signature:(String message)
+promptPassword	utils/UserAuthPubKey.java	/^    public boolean promptPassword(String message){ return true; }$/;"	m	class:UserAuthPubKey.MyUserInfo	signature:(String message)
+promptYesNo	utils/Exec.java	/^    public boolean promptYesNo(String str){$/;"	m	class:Exec.MyUserInfo	signature:(String str)
+promptYesNo	utils/ScpTo.java	/^    public boolean promptYesNo(String str){$/;"	m	class:ScpTo.MyUserInfo	signature:(String str)
+promptYesNo	utils/UserAuthPubKey.java	/^    public boolean promptYesNo(String str){$/;"	m	class:UserAuthPubKey.MyUserInfo	signature:(String str)
+readResult	ssh/NewExec.java	/^	private static String readResult(String result, Channel channel,$/;"	m	class:NewExec	file:	signature:(String result, Channel channel, InputStream in)
+runCmdSlice	slice/Example.java	/^  private static void runCmdSlice(Slice s, String cmd, String privkey){$/;"	m	class:Example	file:	signature:(Slice s, String cmd, String privkey)
+safe.sdx	gzip/TarAndGzip.java	/^package safe.sdx;$/;"	p
+safe.sdx	slice/Example.java	/^package safe.sdx;$/;"	p
+safe.sdx	ssh/Jscp.java	/^package safe.sdx;$/;"	p
+safe.sdx	ssh/NewExec.java	/^package safe.sdx;$/;"	p
+safe.sdx	ssh/Scp.java	/^package safe.sdx;$/;"	p
+safe.sdx	ssh/SecureContext.java	/^package safe.sdx;$/;"	p
+safe.sdx	utils/Exec.java	/^package safe.sdx;$/;"	p
+safe.sdx	utils/SafePost.java	/^package  safe.sdx;$/;"	p
+safe.sdx	utils/ScpTo.java	/^package safe.sdx;$/;"	p
+safe.sdx	utils/UserAuthPubKey.java	/^package safe.sdx;$/;"	p
+sctx	slice/Example.java	/^  private static SliceAccessContext<SSHAccessToken> sctx;$/;"	f	class:Example	file:
+sendCommand	ssh/Scp.java	/^	private static Channel sendCommand(String pRemoteFile, Session session)$/;"	m	class:Scp	file:	signature:(String pRemoteFile, Session session)
+sendContent	ssh/Scp.java	/^	private static FileInputStream sendContent(String pLocalFile,$/;"	m	class:Scp	file:	signature:(String pLocalFile, OutputStream out, InputStream in)
+sendFileSize	ssh/Scp.java	/^	private static void sendFileSize(String pLocalFile, OutputStream out,$/;"	m	class:Scp	file:	signature:(String pLocalFile, OutputStream out, InputStream in)
+setHost	ssh/SecureContext.java	/^	public SecureContext setHost(String pHost) {$/;"	m	class:SecureContext	signature:(String pHost)
+setPassword	ssh/SecureContext.java	/^	public SecureContext setPassword(String pPassword) {$/;"	m	class:SecureContext	signature:(String pPassword)
+setPort	ssh/SecureContext.java	/^	public SecureContext setPort(int pPort) {$/;"	m	class:SecureContext	signature:(int pPort)
+setPrivateKeyFile	ssh/SecureContext.java	/^	public SecureContext setPrivateKeyFile(File pPrivateKeyFile) {$/;"	m	class:SecureContext	signature:(File pPrivateKeyFile)
+setTrustAllHosts	ssh/SecureContext.java	/^	public SecureContext setTrustAllHosts(boolean pTrustAllHosts) {$/;"	m	class:SecureContext	signature:(boolean pTrustAllHosts)
+setUsername	ssh/SecureContext.java	/^	public SecureContext setUsername(String pUsername) {$/;"	m	class:SecureContext	signature:(String pUsername)
+shouldSkip	gzip/TarAndGzip.java	/^	private static boolean shouldSkip(List<String> pIgnores, String path) {$/;"	m	class:TarAndGzip	file:	signature:(List<String> pIgnores, String path)
+showMessage	utils/Exec.java	/^    public void showMessage(String message){$/;"	m	class:Exec.MyUserInfo	signature:(String message)
+showMessage	utils/ScpTo.java	/^    public void showMessage(String message){$/;"	m	class:ScpTo.MyUserInfo	signature:(String message)
+showMessage	utils/UserAuthPubKey.java	/^    public void showMessage(String message){$/;"	m	class:UserAuthPubKey.MyUserInfo	signature:(String message)
+sleep	slice/Example.java	/^	public static void sleep(int sec){$/;"	m	class:Example	signature:(int sec)
+sliceName	slice/Example.java	/^	private static String sliceName;$/;"	f	class:Example	file:
+sliceProxy	slice/Example.java	/^  private static ISliceTransportAPIv1 sliceProxy;$/;"	f	class:Example	file:
+sshExec	utils/Exec.java	/^  public static String sshExec(String user, String host,String command, String privkey){$/;"	m	class:Exec	signature:(String user, String host,String command, String privkey)
+trustAllHosts	ssh/SecureContext.java	/^	private boolean trustAllHosts = false;$/;"	f	class:SecureContext	file:
+username	ssh/SecureContext.java	/^	private String username;$/;"	f	class:SecureContext	file:
+waitTillActive	slice/Example.java	/^  public static void waitTillActive(Slice s){$/;"	m	class:Example	signature:(Slice s)
+writeToStream	gzip/TarAndGzip.java	/^	private static void writeToStream(TarOutputStream pOut, File pFolder,$/;"	m	class:TarAndGzip	file:	signature:(TarOutputStream pOut, File pFolder, String pParent, List<String> pIgnores)
