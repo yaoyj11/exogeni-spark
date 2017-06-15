@@ -108,10 +108,11 @@ public class Example {
       privkey=args[6];
       try{
         System.setProperty("java.security.policy","~/project/exo-geni/ahabserver/allow.policy");
-        Slice spark=createSparkSlice(sliceName,workernum);
-        //Slice spark=Slice.loadManifestFile(sliceProxy, sliceName);
-        copyFile2Slice(spark,args[7],"~/spark.tar.gz",privkey,"node.*");
-        runCmdSlice(spark, "tar -xvf spark.tar.gz; cd ~/spark;tar -xvf safespark-2.1.0.tar.gz; tar -xvf java_restricted_process_builder.tar.gz;/bin/bash builddocker.sh;/bin/bash rundocker.sh",privkey,false,"node.*");
+//        Slice spark=createSparkSlice(sliceName,workernum);
+        Slice spark=Slice.loadManifestFile(sliceProxy, sliceName);
+//        copyFile2Slice(spark,args[7],"~/spark.tar.gz",privkey,"node.*");
+        //runCmdSlice(spark, "tar -xvf spark.tar.gz; cd ~/spark;tar -xvf spark-2.1.1.tar.gz;/bin/bash builddocker.sh;/bin/bash rundocker.sh",privkey,false,"node.*");
+        //runCmdSlice(spark, "tar -xvf spark.tar.gz; cd ~/spark;wget https://d3kbcqa49mib13.cloudfront.net/spark-2.1.1.tgz;tar -xvf spark-2.1.1.tgz;/bin/bash builddocker.sh;/bin/bash rundocker.sh",privkey,false,"node.*");
         configureSpark(spark,workernum);
       }catch (Exception e){
         e.printStackTrace();
@@ -133,12 +134,12 @@ public class Example {
     ComputeNode master=(ComputeNode) s.getResourceByName("node0");
     String masterip=master.getManagementIP();
     //start master
-    String res=Exec.sshExec("root",masterip,"cd ~/spark;docker exec  sparkserver /bin/bash -c \"export SPARK_HOME=/root/spark-2.1.0 && /root/master.sh\"&",privkey);
+    String res=Exec.sshExec("root",masterip,"cd ~/spark;docker exec  sparkserver /bin/bash -c \"export SPARK_HOME=/root/spark/spark-2.1.1 && /root/master.sh\"&",privkey);
     for(int i=1;i<num;i++){
       ComputeNode worker=(ComputeNode) s.getResourceByName("node"+String.valueOf(i));
       String mip=worker.getManagementIP();
       //start master
-      res=Exec.sshExec("root",mip,"cd ~/spark;docker exec  sparkserver /bin/bash -c \"export SPARK_HOME=/root/spark-2.1.0 && /root/worker.sh spark://"+masterip+":7077\"&",privkey);
+      res=Exec.sshExec("root",mip,"cd ~/spark;docker exec  sparkserver /bin/bash -c \"export SPARK_HOME=/root/spark/spark-2.1.1 && /root/worker.sh spark://"+masterip+":7077\"&",privkey);
     }
   }
 
