@@ -111,7 +111,7 @@ public class Example {
 //        Slice spark=createSparkSlice(sliceName,workernum);
         Slice spark=Slice.loadManifestFile(sliceProxy, sliceName);
 //        copyFile2Slice(spark,args[7],"~/spark.tar.gz",privkey,"node.*");
-        //runCmdSlice(spark, "tar -xvf spark.tar.gz; cd ~/spark;tar -xvf spark-2.1.1.tar.gz;/bin/bash builddocker.sh;/bin/bash rundocker.sh",privkey,false,"node.*");
+        runCmdSlice(spark, "tar -xvf spark.tar.gz; cd ~/spark;tar -xvf spark-2.1.1.tar.gz;/bin/bash builddocker.sh;/bin/bash rundocker.sh",privkey,false,"node.*");
         //runCmdSlice(spark, "tar -xvf spark.tar.gz; cd ~/spark;wget https://d3kbcqa49mib13.cloudfront.net/spark-2.1.1.tgz;tar -xvf spark-2.1.1.tgz;/bin/bash builddocker.sh;/bin/bash rundocker.sh",privkey,false,"node.*");
         configureSpark(spark,workernum);
       }catch (Exception e){
