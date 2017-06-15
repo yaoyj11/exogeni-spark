@@ -108,10 +108,9 @@ public class Example {
       privkey=args[6];
       try{
         System.setProperty("java.security.policy","~/project/exo-geni/ahabserver/allow.policy");
-        //Slice spark=createSparkSlice(sliceName,workernum);
-        Slice spark=Slice.loadManifestFile(sliceProxy, sliceName);
-        //copyDir2Slice(spark,"/home/yaoyj11/project/spark", "~/","spark.tar.gz");
-        //copyFile2Slice(spark,"/home/yaoyj11/project/spark.tar.gz","~/spark.tar.gz",privkey,"node.*");
+        Slice spark=createSparkSlice(sliceName,workernum);
+        //Slice spark=Slice.loadManifestFile(sliceProxy, sliceName);
+        copyFile2Slice(spark,"/home/yaoyj11/project/spark.tar.gz","~/spark.tar.gz",privkey,"node.*");
         runCmdSlice(spark, "tar -xvf spark.tar.gz; cd ~/spark;tar -xvf safespark-2.1.0.tar.gz; tar -xvf java_restricted_process_builder.tar.gz;/bin/bash builddocker.sh;/bin/bash rundocker.sh",privkey,false,"node.*");
         configureSpark(spark,workernum);
 
@@ -153,18 +152,10 @@ public class Example {
 		String nodeImageURL ="http://geni-orca.renci.org/owl/5e2190c1-09f1-4c48-8ed6-dacae6b6b435#Ubuntu+14.0.4+Docker";//http://geni-images.renci.org/images/standard/ubuntu/ub1304-ovs-opendaylight-v1.0.0.xml
 		String nodeImageHash ="b4ef61dbd993c72c5ac10b84650b33301bbf6829";
 		String nodeNodeType="XO Extra Large";
-  //  String nodeImageShortName="Ubuntu 14.04";
-  //  String nodeImageURL ="http://geni-orca.renci.org/owl/9dfe179d-3736-41bf-8084-f0cd4a520c2f#Ubuntu+14.04";//http://geni-images.renci.org/images/standard/ubuntu/ub1304-ovs-opendaylight-v1.0.0.xml
-  //  String nodeImageHash ="9394ca154aa35eb55e604503ae7943ddaecc6ca5";
-  //  String nodeNodeType="XO Medium";
-  //  String nodePostBootScript="sudo apt-get update;sudo apt-get install -y docker.io";
-	//	String machineBootScript="curl -L https://github.com/docker/machine/releases/download/v0.10.0/docker-machine-`uname -s`-`uname -m` >/tmp/docker-machine &&chmod +x /tmp/docker-machine &&sudo cp /tmp/docker-machine /usr/local/bin/docker-machine";
-//String nodePostBootScript="apt-get update;apt-get -y install quagga;apt-get -y install openvswitch-switch; /etc/init.d/neuca stop";
 		String nodeDomain=domains.get(0);
 
 		String controllerDomain=domains.get(0);
 	    		
-	//	s.commit();
 		boolean sliceActive = false;
 		
     PriorityNetwork net=PriorityNetwork.create(s,sliceName,controllerDomain,1000000000l);
@@ -193,33 +184,6 @@ public class Example {
 		for(ComputeNode c : s.getComputeNodes()){
       String mip=c.getManagementIP();
       Exec.sshExec ("root",mip,"cd "+rdir+";tar -xvf "+tarfile,privkey);
-      // create secure context
-      
-      // Console requires JDK 1.7 
-      // System.out.println("enter password:");
-      // context.setPassword(System.console().readPassword());
-     // SecureContext context = new SecureContext("root", mip);
-     // 
-     // // set optional security configurations.
-     // context.setTrustAllHosts(true);
-     // context.setPrivateKeyFile(new File(privkey));
-     // try{
-     // 
-     // Jscp.exec(context, "ldir", rdir,
-     //  // regex ignore list.
-     //  Arrays.asList(
-     //  "backups"));
-     // }catch (Exception e){
-     //   e.printStackTrace();
-     //   System.out.println("exception when copying directory");
-     // }
-      // ```
-      //
-      //try{
-			//	Exec.exec("scp -r -o \"StrictHostKeyChecking no\" "+ldir+"  root@"+mip+":"+rdir);
-      //}catch (Exception e){
-      //  System.out.println("exception when copying config directory");
-      //}
 		}
     Exec.exec("rm "+tarfile);
   }
@@ -294,95 +258,6 @@ public class Example {
 		}
   }
 
-//  private static void runCmdSliceParallel(Slice s, String cmd, String privkey,boolean repeat,String p){
-//    Pattern pattern = Pattern.compile(p);
-//		
-//		ExecutorService executor = Executors.newFixedThreadPool(10);
-//		for(ComputeNode c : s.getComputeNodes()){
-//      String name=c.getName();
-//      Matcher matcher = pattern.matcher(name);
-//      if(matcher.matches()){
-//        String mip=c.getManagementIP();
-//        try{
-//          System.out.println(mip+" run commands:"+cmd);
-//          //ScpTo.Scp(lfile,"root",mip,rfile,privkey);
-//          //RunCMDNode obj=new RunCMDNode("root",mip,cmd,privkey,repeat);
-//          Runnable obj = new RunCMDNode("root",mip,cmd,privkey,repeat);
-//					executor.execute(obj);
-//        }catch (Exception e){
-//          e.printStackTrace();
-//        }
-//      }
-//      boolean flag=false;
-//			executor.shutdown();
-//			// Wait until all threads are finish
-//			while (!executor.isTerminated()) {
-// 
-//			}
-//    //  while(!flag){
-//    //    flag=true;
-//    //    for(Thread n:list){
-//    //      if(n.isAlive()){
-//    //        flag=false;
-//    //      }
-//    //    }
-//    //  }
-//		}
-//  }
-  /*
-
-ExecutorService executor = Executors.newFixedThreadPool(MYTHREADS);
-		String[] hostList = { "https://crunchify.com", "http://yahoo.com",
-				"http://www.ebay.com", "http://google.com",
-				"http://www.example.co", "https://paypal.com",
-				"http://bing.com/", "http://techcrunch.com/",
-				"http://mashable.com/", "http://thenextweb.com/",
-				"http://wordpress.com/", "http://wordpress.org/",
-				"http://example.com/", "http://sjsu.edu/",
-				"http://ebay.co.uk/", "http://google.co.uk/",
-				"http://www.wikipedia.org/",
-				"http://en.wikipedia.org/wiki/Main_Page" };
- 
-		for (int i = 0; i < hostList.length; i++) {
- 
-			String url = hostList[i];
-			Runnable worker = new MyRunnable(url);
-			executor.execute(worker);
-		}
-		executor.shutdown();
-		// Wait until all threads are finish
-		while (!executor.isTerminated()) {
- 
-		}
-   *
-   * */
-
-  /*
-  private static void runCmdSliceParallel(Slice s, String cmd, String privkey,boolean repeat){
-		for(ComputeNode c : s.getComputeNodes()){
-      ArrayList<RunCMDNode> list=new ArrayList<RunCMDNode>();
-      String mip=c.getManagementIP();
-      try{
-        System.out.println(mip+" run commands:"+cmd);
-        //ScpTo.Scp(lfile,"root",mip,rfile,privkey);
-        RunCMDNode obj=new RunCMDNode("root",mip,cmd,privkey,repeat);
-        obj.start();
-        list.add(obj);
-      }catch (Exception e){
-        System.out.println("exception when copying config file");
-      }
-      boolean flag=false;
-      while(!flag){
-        flag=true;
-        for(RunCMDNode n:list){
-          if(n.isAlive()){
-            flag=false;
-          }
-        }
-      }
-		}
-  }
-  */
 
   public static void getNetworkInfo(Slice s){
     //getLinks
@@ -535,38 +410,3 @@ ExecutorService executor = Executors.newFixedThreadPool(MYTHREADS);
 		}
   }
 }
-
-// run master
-// docker exec -it sparkserver /bin/bash -c "export SPARK_HOME=/root/spark-2.1.0 && /root/master.sh"
-// docker exec -it sparkserver /bin/bash -c "export SPARK_HOME=/root/spark-2.1.0 && /root/worker.sh spark://192.168.1.3:7077"
-// 152.54.14.36  
-// 152.54.14.37: node 2 master
-//class RunCMDNode implements Runnable{
-//  String user;
-//  String mip;
-//  String cmd;
-//  String privkey;
-//  boolean repeat;
-//  public RunCMDNode(String puser,String pmip, String pcmd, String pprivkey,boolean prepeat){
-//    user=puser;
-//    mip=pmip;
-//    cmd=pcmd;
-//    privkey=pprivkey;
-//    repeat=prepeat;
-//  }
-//
-//  public void run(){
-//    try{
-//      //String res=Exec.sshExec(user,mip,cmd,privkey);
-//      System.out.println(mip+"1");
-//      Thread.sleep(5000);
-//      System.out.println(mip+"2");
-//      //while(res.startsWith("error")&&repeat){
-//      //  Thread.sleep(5000);
-//      //  res=Exec.sshExec(user,mip,cmd,privkey);
-//      //}
-//    }catch(Exception e){
-//      e.printStackTrace();
-//    }
-//  }
-//}
