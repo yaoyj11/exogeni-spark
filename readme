@@ -1,4 +1,4 @@
-1. specify the location of your pem file
-2. run: ./spark.sh sliceNAME spark #VM sshkeylocation sparklocation
+1. specify the location of your pem file in launchsparkcluster.sh
+2. run: ./launchsparkcluster.sh sliceNAME spark #VM sshkeylocation sparklocation IMAGE-TYPE
 For example, the following command will create a spark cluster with 3 workers. The master runs on "node0", you can check the status of the cluster at: Master'sIP:8080
-$./spark.sh name spark 4 "~/.ssh/id_rsa" /home/yaoyj11/Desktop/exogeni-spark/spark.tar.gz "XO Extra Large"
+$./launchsparkcluster.sh sparkcluster1 spark 4 "~/.ssh/id_rsa" /home/yaoyj11/Desktop/exogeni-spark/spark.tar.gz "XO Extra Large"
