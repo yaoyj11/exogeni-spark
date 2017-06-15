@@ -1,0 +1,5 @@
+ComputeNode: node1, Managment IP =  152.54.14.43
+ComputeNode: hah_sw_site0_0, Managment IP =  152.54.14.41
+ComputeNode: hah_controller, Managment IP =  152.54.14.42
+ComputeNode: node2, Managment IP =  152.54.14.40
+ComputeNode: node0, Managment IP =  152.54.14.44

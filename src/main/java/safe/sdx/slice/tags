@@ -1,0 +1,31 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+AppendFile	Example.java	/^  private static void  AppendFile(String filepath, String data){$/;"	m	class:Example	file:	signature:(String filepath, String data)
+Example	Example.java	/^  public Example()throws RemoteException{}$/;"	m	class:Example	signature:()
+Example	Example.java	/^public class Example {$/;"	c
+RequestResource	Example.java	/^	private static final String RequestResource = null;$/;"	f	class:Example	file:
+configureSpark	Example.java	/^  private static void configureSpark(Slice s, int num){$/;"	m	class:Example	file:	signature:(Slice s, int num)
+controllerUrl	Example.java	/^  private static String controllerUrl;$/;"	f	class:Example	file:
+copyDir2Slice	Example.java	/^  private static void copyDir2Slice(Slice s, String ldir, String rdir){$/;"	m	class:Example	file:	signature:(Slice s, String ldir, String rdir)
+copyFile2Slice	Example.java	/^  private static void copyFile2Slice(Slice s, String lfile, String rfile,String privkey){$/;"	m	class:Example	file:	signature:(Slice s, String lfile, String rfile,String privkey)
+createPriorityNetwork	Example.java	/^  public static Slice createPriorityNetwork(String sliceName,int num){$/;"	m	class:Example	signature:(String sliceName,int num)
+createSparkSlice	Example.java	/^  private static Slice createSparkSlice(String sliceName,int num){$/;"	m	class:Example	file:	signature:(String sliceName,int num)
+domains	Example.java	/^	public static final ArrayList<String> domains;$/;"	f	class:Example
+getNetworkInfo	Example.java	/^  public static void getNetworkInfo(Slice s){$/;"	m	class:Example	signature:(Slice s)
+getSlice	Example.java	/^	public static Slice getSlice(ISliceTransportAPIv1 sliceProxy, String sliceName){$/;"	m	class:Example	signature:(ISliceTransportAPIv1 sliceProxy, String sliceName)
+getSliceProxy	Example.java	/^	public static ISliceTransportAPIv1 getSliceProxy(String pem, String key, String controllerUrl){$/;"	m	class:Example	signature:(String pem, String key, String controllerUrl)
+keyLocation	Example.java	/^	private static String keyLocation;$/;"	f	class:Example	file:
+main	Example.java	/^	public static void main(String [] args){$/;"	m	class:Example	signature:(String [] args)
+pemLocation	Example.java	/^	private static String pemLocation;$/;"	f	class:Example	file:
+privkey	Example.java	/^  private static String privkey="~\/.ssh\/id_rsa";$/;"	f	class:Example	file:
+runCmdSlice	Example.java	/^  private static void runCmdSlice(Slice s, String cmd, String privkey){$/;"	m	class:Example	file:	signature:(Slice s, String cmd, String privkey)
+safe.sdx	Example.java	/^package safe.sdx;$/;"	p
+sctx	Example.java	/^  private static SliceAccessContext<SSHAccessToken> sctx;$/;"	f	class:Example	file:
+sleep	Example.java	/^	public static void sleep(int sec){$/;"	m	class:Example	signature:(int sec)
+sliceName	Example.java	/^	private static String sliceName;$/;"	f	class:Example	file:
+sliceProxy	Example.java	/^  private static ISliceTransportAPIv1 sliceProxy;$/;"	f	class:Example	file:
+waitTillActive	Example.java	/^  public static void waitTillActive(Slice s){$/;"	m	class:Example	signature:(Slice s)

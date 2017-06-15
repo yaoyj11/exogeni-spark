@@ -1,0 +1,4 @@
+1. specify the location of your pem file
+2. run: ./spark.sh sliceNAME spark #VM
+For example, the following command will create a spark cluster with 3 workers. The master runs on "node0", you can check the status of the cluster at: Master'sIP:8080
+$./spark.sh name spark 4
