@@ -2,6 +2,8 @@
  * 
  */
 package safe.sdx;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -58,11 +60,14 @@ import java.rmi.RMISecurityManager;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 /**
 
  * @author geni-orca
  *
  */
+
 public class Example {
   public Example()throws RemoteException{}
 	private static final String RequestResource = null;
@@ -100,13 +105,14 @@ public class Example {
 
     if(args[4].equals("spark")){
       int workernum=Integer.valueOf(args[5]);
+      privkey=args[6];
       try{
         System.setProperty("java.security.policy","~/project/exo-geni/ahabserver/allow.policy");
-        Slice spark=createSparkSlice(sliceName,workernum);
-        //Slice spark=Slice.loadManifestFile(sliceProxy, sliceName);
+        //Slice spark=createSparkSlice(sliceName,workernum);
+        Slice spark=Slice.loadManifestFile(sliceProxy, sliceName);
         //copyDir2Slice(spark,"/home/yaoyj11/project/spark", "~/","spark.tar.gz");
-        copyFile2Slice(spark,"/home/yaoyj11/project/spark.tar.gz","~/spark.tar.gz",privkey);
-        runCmdSlice(spark, "tar -xvf spark.tar.gz; cd ~/spark;tar -xvf safespark-2.1.0.tar.gz; tar -xvf java_restricted_process_builder.tar.gz;/bin/bash builddocker.sh;/bin/bash rundocker.sh",privkey,false);
+        //copyFile2Slice(spark,"/home/yaoyj11/project/spark.tar.gz","~/spark.tar.gz",privkey,"node.*");
+        runCmdSlice(spark, "tar -xvf spark.tar.gz; cd ~/spark;tar -xvf safespark-2.1.0.tar.gz; tar -xvf java_restricted_process_builder.tar.gz;/bin/bash builddocker.sh;/bin/bash rundocker.sh",privkey,false,"node.*");
         configureSpark(spark,workernum);
 
       }catch (Exception e){
@@ -220,34 +226,163 @@ public class Example {
 
   private static void copyFile2Slice(Slice s, String lfile, String rfile,String privkey){
 		for(ComputeNode c : s.getComputeNodes()){
-      String mip=c.getManagementIP();
-      try{
-        ScpTo.Scp(lfile,"root",mip,rfile,privkey);
-        //Exec.sshExec("yaoyj11","152.3.136.145","/bin/bash "+rfile,privkey);
-      }catch (Exception e){
-        System.out.println("exception when copying file");
+        String mip=c.getManagementIP();
+        try{
+          ScpTo.Scp(lfile,"root",mip,rfile,privkey);
+          //Exec.sshExec("yaoyj11","152.3.136.145","/bin/bash "+rfile,privkey);
+        }catch (Exception e){
+          System.out.println("exception when copying file");
+        }
+		}
+  }
+
+  private static void copyFile2Slice(Slice s, String lfile, String rfile,String privkey,String p){
+    Pattern pattern = Pattern.compile(p);
+		for(ComputeNode c : s.getComputeNodes()){
+      String name=c.getName();
+      Matcher matcher = pattern.matcher(name);
+      if(matcher.matches()){
+        String mip=c.getManagementIP();
+        try{
+          ScpTo.Scp(lfile,"root",mip,rfile,privkey);
+          //Exec.sshExec("yaoyj11","152.3.136.145","/bin/bash "+rfile,privkey);
+        }catch (Exception e){
+          System.out.println("exception when copying file");
+        }
       }
 		}
   }
 
   private static void runCmdSlice(Slice s, String cmd, String privkey,boolean repeat){
 		for(ComputeNode c : s.getComputeNodes()){
-      String mip=c.getManagementIP();
-      try{
-        System.out.println(mip+" run commands:"+cmd);
-        //ScpTo.Scp(lfile,"root",mip,rfile,privkey);
-        String res=Exec.sshExec("root",mip,cmd,privkey);
-        while(res.startsWith("error")&&repeat){
-          sleep(5);
-          res=Exec.sshExec("root",mip,cmd,privkey);
-        }
+        String mip=c.getManagementIP();
+        try{
+          System.out.println(mip+" run commands:"+cmd);
+          //ScpTo.Scp(lfile,"root",mip,rfile,privkey);
+          String res=Exec.sshExec("root",mip,cmd,privkey);
+          while(res.startsWith("error")&&repeat){
+            sleep(5);
+            res=Exec.sshExec("root",mip,cmd,privkey);
+          }
 
-      }catch (Exception e){
-        System.out.println("exception when copying config file");
+        }catch (Exception e){
+          System.out.println("exception when copying config file");
+        }
+		}
+  }
+
+  private static void runCmdSlice(Slice s, String cmd, String privkey,boolean repeat,String p){
+    Pattern pattern = Pattern.compile(p);
+		for(ComputeNode c : s.getComputeNodes()){
+      String name=c.getName();
+      Matcher matcher = pattern.matcher(name);
+      if(matcher.matches()){
+        String mip=c.getManagementIP();
+        try{
+          System.out.println(mip+" run commands:"+cmd);
+          //ScpTo.Scp(lfile,"root",mip,rfile,privkey);
+          String res=Exec.sshExec("root",mip,cmd,privkey);
+          while(res.startsWith("error")&&repeat){
+            sleep(5);
+            res=Exec.sshExec("root",mip,cmd,privkey);
+          }
+
+        }catch (Exception e){
+          System.out.println("exception when copying config file");
+        }
       }
 		}
   }
 
+//  private static void runCmdSliceParallel(Slice s, String cmd, String privkey,boolean repeat,String p){
+//    Pattern pattern = Pattern.compile(p);
+//		
+//		ExecutorService executor = Executors.newFixedThreadPool(10);
+//		for(ComputeNode c : s.getComputeNodes()){
+//      String name=c.getName();
+//      Matcher matcher = pattern.matcher(name);
+//      if(matcher.matches()){
+//        String mip=c.getManagementIP();
+//        try{
+//          System.out.println(mip+" run commands:"+cmd);
+//          //ScpTo.Scp(lfile,"root",mip,rfile,privkey);
+//          //RunCMDNode obj=new RunCMDNode("root",mip,cmd,privkey,repeat);
+//          Runnable obj = new RunCMDNode("root",mip,cmd,privkey,repeat);
+//					executor.execute(obj);
+//        }catch (Exception e){
+//          e.printStackTrace();
+//        }
+//      }
+//      boolean flag=false;
+//			executor.shutdown();
+//			// Wait until all threads are finish
+//			while (!executor.isTerminated()) {
+// 
+//			}
+//    //  while(!flag){
+//    //    flag=true;
+//    //    for(Thread n:list){
+//    //      if(n.isAlive()){
+//    //        flag=false;
+//    //      }
+//    //    }
+//    //  }
+//		}
+//  }
+  /*
+
+ExecutorService executor = Executors.newFixedThreadPool(MYTHREADS);
+		String[] hostList = { "https://crunchify.com", "http://yahoo.com",
+				"http://www.ebay.com", "http://google.com",
+				"http://www.example.co", "https://paypal.com",
+				"http://bing.com/", "http://techcrunch.com/",
+				"http://mashable.com/", "http://thenextweb.com/",
+				"http://wordpress.com/", "http://wordpress.org/",
+				"http://example.com/", "http://sjsu.edu/",
+				"http://ebay.co.uk/", "http://google.co.uk/",
+				"http://www.wikipedia.org/",
+				"http://en.wikipedia.org/wiki/Main_Page" };
+ 
+		for (int i = 0; i < hostList.length; i++) {
+ 
+			String url = hostList[i];
+			Runnable worker = new MyRunnable(url);
+			executor.execute(worker);
+		}
+		executor.shutdown();
+		// Wait until all threads are finish
+		while (!executor.isTerminated()) {
+ 
+		}
+   *
+   * */
+
+  /*
+  private static void runCmdSliceParallel(Slice s, String cmd, String privkey,boolean repeat){
+		for(ComputeNode c : s.getComputeNodes()){
+      ArrayList<RunCMDNode> list=new ArrayList<RunCMDNode>();
+      String mip=c.getManagementIP();
+      try{
+        System.out.println(mip+" run commands:"+cmd);
+        //ScpTo.Scp(lfile,"root",mip,rfile,privkey);
+        RunCMDNode obj=new RunCMDNode("root",mip,cmd,privkey,repeat);
+        obj.start();
+        list.add(obj);
+      }catch (Exception e){
+        System.out.println("exception when copying config file");
+      }
+      boolean flag=false;
+      while(!flag){
+        flag=true;
+        for(RunCMDNode n:list){
+          if(n.isAlive()){
+            flag=false;
+          }
+        }
+      }
+		}
+  }
+  */
 
   public static void getNetworkInfo(Slice s){
     //getLinks
@@ -406,3 +541,32 @@ public class Example {
 // docker exec -it sparkserver /bin/bash -c "export SPARK_HOME=/root/spark-2.1.0 && /root/worker.sh spark://192.168.1.3:7077"
 // 152.54.14.36  
 // 152.54.14.37: node 2 master
+//class RunCMDNode implements Runnable{
+//  String user;
+//  String mip;
+//  String cmd;
+//  String privkey;
+//  boolean repeat;
+//  public RunCMDNode(String puser,String pmip, String pcmd, String pprivkey,boolean prepeat){
+//    user=puser;
+//    mip=pmip;
+//    cmd=pcmd;
+//    privkey=pprivkey;
+//    repeat=prepeat;
+//  }
+//
+//  public void run(){
+//    try{
+//      //String res=Exec.sshExec(user,mip,cmd,privkey);
+//      System.out.println(mip+"1");
+//      Thread.sleep(5000);
+//      System.out.println(mip+"2");
+//      //while(res.startsWith("error")&&repeat){
+//      //  Thread.sleep(5000);
+//      //  res=Exec.sshExec(user,mip,cmd,privkey);
+//      //}
+//    }catch(Exception e){
+//      e.printStackTrace();
+//    }
+//  }
+//}
