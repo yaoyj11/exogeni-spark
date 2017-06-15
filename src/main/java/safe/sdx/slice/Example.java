@@ -110,10 +110,9 @@ public class Example {
         System.setProperty("java.security.policy","~/project/exo-geni/ahabserver/allow.policy");
         Slice spark=createSparkSlice(sliceName,workernum);
         //Slice spark=Slice.loadManifestFile(sliceProxy, sliceName);
-        copyFile2Slice(spark,"/home/yaoyj11/project/spark.tar.gz","~/spark.tar.gz",privkey,"node.*");
+        copyFile2Slice(spark,args[7],"~/spark.tar.gz",privkey,"node.*");
         runCmdSlice(spark, "tar -xvf spark.tar.gz; cd ~/spark;tar -xvf safespark-2.1.0.tar.gz; tar -xvf java_restricted_process_builder.tar.gz;/bin/bash builddocker.sh;/bin/bash rundocker.sh",privkey,false,"node.*");
         configureSpark(spark,workernum);
-
       }catch (Exception e){
         e.printStackTrace();
       }
