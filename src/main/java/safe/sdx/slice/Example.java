@@ -78,6 +78,7 @@ public class Example {
   private static ISliceTransportAPIv1 sliceProxy;
   private static SliceAccessContext<SSHAccessToken> sctx;
   private static String privkey="~/.ssh/id_rsa";
+	private static String nodeNodeType="XO Extra Large";
 	
 	public static void main(String [] args){
 		//Example usage:   ./target/appassembler/bin/SafeSdxExample  ~/.ssl/geni-pruth1.pem ~/.ssl/geni-pruth1.pem "https://geni.renci.org:11443/orca/xmlrpc" name OPTION workernum
@@ -106,11 +107,12 @@ public class Example {
     if(args[4].equals("spark")){
       int workernum=Integer.valueOf(args[5]);
       privkey=args[6];
+      nodeNodeType=args[8];
       try{
         System.setProperty("java.security.policy","~/project/exo-geni/ahabserver/allow.policy");
         Slice spark=createSparkSlice(sliceName,workernum);
 //        Slice spark=Slice.loadManifestFile(sliceProxy, sliceName);
-//        copyFile2Slice(spark,args[7],"~/spark.tar.gz",privkey,"node.*");
+        copyFile2Slice(spark,args[7],"~/spark.tar.gz",privkey,"node.*");
         runCmdSlice(spark, "tar -xvf spark.tar.gz; cd ~/spark;tar -xvf spark-2.1.1.tar.gz;/bin/bash builddocker.sh;/bin/bash rundocker.sh",privkey,false,"node.*");
         //runCmdSlice(spark, "tar -xvf spark.tar.gz; cd ~/spark;wget https://d3kbcqa49mib13.cloudfront.net/spark-2.1.1.tgz;tar -xvf spark-2.1.1.tgz;/bin/bash builddocker.sh;/bin/bash rundocker.sh",privkey,false,"node.*");
         configureSpark(spark,workernum);
@@ -151,7 +153,6 @@ public class Example {
 		String nodeImageShortName="Ubuntu 14.04 Docker";
 		String nodeImageURL ="http://geni-orca.renci.org/owl/5e2190c1-09f1-4c48-8ed6-dacae6b6b435#Ubuntu+14.0.4+Docker";//http://geni-images.renci.org/images/standard/ubuntu/ub1304-ovs-opendaylight-v1.0.0.xml
 		String nodeImageHash ="b4ef61dbd993c72c5ac10b84650b33301bbf6829";
-		String nodeNodeType="XO Extra Large";
 		String nodeDomain=domains.get(0);
 
 		String controllerDomain=domains.get(0);
