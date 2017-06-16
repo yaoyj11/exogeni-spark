@@ -1,4 +1,12 @@
-1. specify the location of your pem file in launchsparkcluster.sh
-2. run: ./launchsparkcluster.sh sliceNAME spark #VM sshkeylocation sparklocation IMAGE-TYPE
-For example, the following command will create a spark cluster with 3 workers. The master runs on "node0", you can check the status of the cluster at: Master'sIP:8080
-$./launchsparkcluster.sh sparkcluster1 spark 4 "~/.ssh/id_rsa" /home/yaoyj11/Desktop/exogeni-spark/spark.tar.gz "XO Extra Large"
+This is a java program that uses "Ahab" library to launch a slice on ExoGENI, and deploy a spark cluster in docker containers
+
+To launch a spark cluster, you need to:
+
+1. specify the location of your pem file and VM type ("XO Medium", "XO Large", etc.)in launchsparkcluster.sh
+
+2. launch the cluster, run: ./launchsparkcluster.sh sliceNAME spark  #VM
+$./launchsparkcluster.sh sparkcluster1 spark 4 "XO\ Large"
+
+3. The master node of spark cluster lies in "node0", workers lie in "node1", "node2",etc.
+To login into the container, login to the VM, and run:
+$docker exec -it sparkserver "/bin/bash"

@@ -75,7 +75,7 @@ public class Example {
   private static ISliceTransportAPIv1 sliceProxy;
   private static SliceAccessContext<SSHAccessToken> sctx;
   private static String privkey="~/.ssh/id_rsa";
-	
+	private static String nodeType="XO Medium";
 	public static void main(String [] args){
 		//Example usage:   ./target/appassembler/bin/SafeSdxExample  ~/.ssl/geni-pruth1.pem ~/.ssl/geni-pruth1.pem "https://geni.renci.org:11443/orca/xmlrpc" name OPTION workernum
 		System.out.println("ndllib TestDriver: START");
@@ -103,8 +103,8 @@ public class Example {
     if(args[4].equals("spark")){
       int workernum=Integer.valueOf(args[5]);
       privkey=args[6];
+      nodeType=args[8];
       try{
-        System.setProperty("java.security.policy","~/project/exo-geni/ahabserver/allow.policy");
         Slice spark=createSparkSlice(sliceName,workernum);
         //Slice spark=Slice.loadManifestFile(sliceProxy, sliceName);
         copyFile2Slice(spark,args[7],"~/spark.tar.gz",privkey,"node.*");
@@ -141,7 +141,7 @@ public class Example {
   }
 
   public static Slice createSparkSlice(String sliceName,int num){
-		System.out.println("ndllib TestDriver: START");
+		System.out.println("ndllib TestDriver: START lauching spark slice of "+nodeType);
 		//Main Example Code
 		
 		Slice s = Slice.create(sliceProxy, sctx, sliceName);
