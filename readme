@@ -13,5 +13,5 @@ $./launchsparkcluster.sh sparkcluster1 spark 4
 4. The master node of spark cluster lies in "node0", workers lie in "node1", "node2",etc. The ip addresses of each node in the slice is appended to "nodes.txt"
   (1) To check the status of the cluster, check the master's webUI at "MASTERIP:8080"
   (2) To login into the container, login to the VM, and run:
+  $docker exec -it sparkserver "/bin/bash"
   (3) You can submit your job with "spark-submit" from any host. If you submit the job from outside of the slice, you should use the VM's public IP address, otherwise use the master VM's internal IP address "192.168.1.1"
-$docker exec -it sparkserver "/bin/bash"
