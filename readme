@@ -2,11 +2,14 @@ This is a java program that uses "Ahab" library to launch a slice on ExoGENI, an
 
 To launch a spark cluster, you need to:
 
-1. specify the location of your pem file and VM type ("XO Medium", "XO Large", etc.)in launchsparkcluster.sh
+1. build
+$./build.sh
 
-2. launch the cluster, run: ./launchsparkcluster.sh sliceNAME spark  #VM
+2. specify the location of your pem file and VM type ("XO Medium", "XO Large", etc.)in launchsparkcluster.sh
+
+3. launch the cluster, run: ./launchsparkcluster.sh sliceNAME spark  #VM
 $./launchsparkcluster.sh sparkcluster1 spark 4 
 
-3. The master node of spark cluster lies in "node0", workers lie in "node1", "node2",etc.
+4. The master node of spark cluster lies in "node0", workers lie in "node1", "node2",etc.
 To login into the container, login to the VM, and run:
 $docker exec -it sparkserver "/bin/bash"
