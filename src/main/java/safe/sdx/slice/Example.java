@@ -2,9 +2,6 @@
  * 
  */
 package safe.sdx;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -78,7 +75,6 @@ public class Example {
   private static ISliceTransportAPIv1 sliceProxy;
   private static SliceAccessContext<SSHAccessToken> sctx;
   private static String privkey="~/.ssh/id_rsa";
-	private static String nodeNodeType="XO Extra Large";
 	
 	public static void main(String [] args){
 		//Example usage:   ./target/appassembler/bin/SafeSdxExample  ~/.ssl/geni-pruth1.pem ~/.ssl/geni-pruth1.pem "https://geni.renci.org:11443/orca/xmlrpc" name OPTION workernum
@@ -95,7 +91,7 @@ public class Example {
 		sctx = new SliceAccessContext<>();
 		try {
 			SSHAccessTokenFileFactory fac;
-			fac = new SSHAccessTokenFileFactory("~/.ssh/id_rsa.pub", false);
+			fac = new SSHAccessTokenFileFactory(privkey+".pub", false);
 			SSHAccessToken t = fac.getPopulatedToken();			
 			sctx.addToken("root", "root", t);
 			sctx.addToken("root", t);
@@ -107,13 +103,12 @@ public class Example {
     if(args[4].equals("spark")){
       int workernum=Integer.valueOf(args[5]);
       privkey=args[6];
-      nodeNodeType=args[8];
       try{
         System.setProperty("java.security.policy","~/project/exo-geni/ahabserver/allow.policy");
-        //Slice spark=createSparkSlice(sliceName,workernum);
-        Slice spark=Slice.loadManifestFile(sliceProxy, sliceName);
-        //copyFile2Slice(spark,args[7],"~/spark.tar.gz",privkey,"node.*");
-        //runCmdSlice(spark, "tar -xvf spark.tar.gz; cd ~/spark;tar -xvf spark-2.1.1.tar.gz;/bin/bash builddocker.sh;/bin/bash rundocker.sh",privkey,false,"node.*");
+        Slice spark=createSparkSlice(sliceName,workernum);
+        //Slice spark=Slice.loadManifestFile(sliceProxy, sliceName);
+        copyFile2Slice(spark,args[7],"~/spark.tar.gz",privkey,"node.*");
+        runCmdSliceParallel(spark, "tar -xvf spark.tar.gz; cd ~/spark;docker pull yaoyj11/sparkimg;/bin/bash rundocker.sh",privkey,false,"node.*");
         //runCmdSlice(spark, "tar -xvf spark.tar.gz; cd ~/spark;wget https://d3kbcqa49mib13.cloudfront.net/spark-2.1.1.tgz;tar -xvf spark-2.1.1.tgz;/bin/bash builddocker.sh;/bin/bash rundocker.sh",privkey,false,"node.*");
         configureSpark(spark,workernum);
       }catch (Exception e){
@@ -153,6 +148,7 @@ public class Example {
 		String nodeImageShortName="Ubuntu 14.04 Docker";
 		String nodeImageURL ="http://geni-orca.renci.org/owl/5e2190c1-09f1-4c48-8ed6-dacae6b6b435#Ubuntu+14.0.4+Docker";//http://geni-images.renci.org/images/standard/ubuntu/ub1304-ovs-opendaylight-v1.0.0.xml
 		String nodeImageHash ="b4ef61dbd993c72c5ac10b84650b33301bbf6829";
+	  String nodeNodeType="XO XLarge";
 		String nodeDomain=domains.get(0);
 
 		String controllerDomain=domains.get(0);
@@ -168,6 +164,7 @@ public class Example {
         ComputeNode node = s.addComputeNode("node"+String.valueOf(j));
         node.setImage(nodeImageURL,nodeImageHash,nodeImageShortName);
         node.setNodeType(nodeNodeType);
+        //System.out.println(nodeNodeType);
         node.setDomain(domain);
         net.addNode(node,"site"+String.valueOf(i),"192.168.1."+String.valueOf(j+1),"255.255.255.0");
       }
@@ -177,7 +174,6 @@ public class Example {
 		System.out.println("Done");
     return s;
   }
-
 
   private static void copyDir2Slice(Slice s, String ldir, String rdir,String tarfile){
     Exec.exec("tar -zcvf "+tarfile+" "+ldir);
@@ -259,6 +255,45 @@ public class Example {
 		}
   }
 
+  private static void runCmdSliceParallel(Slice s,final String cmd, final String privkey,final boolean repeat,String p){
+    Pattern pattern = Pattern.compile(p);
+    ArrayList<Thread> tlist=new ArrayList<Thread>();
+		for(ComputeNode c : s.getComputeNodes()){
+      String name=c.getName();
+      Matcher matcher = pattern.matcher(name);
+      if(matcher.matches()){
+        final String mip=c.getManagementIP();
+        try{
+          System.out.println(mip+" run commands:"+cmd);
+          //ScpTo.Scp(lfile,"root",mip,rfile,privkey);
+          Thread thread=new Thread(){
+            @Override public void run(){
+              try{
+                String res=Exec.sshExec("root",mip,cmd,privkey);
+                while(res.startsWith("error")&&repeat){
+                  sleep(5);
+                  res=Exec.sshExec("root",mip,cmd,privkey);
+                }
+              }catch(Exception e){
+                e.printStackTrace();
+              }
+            }
+          };
+          thread.start();
+          tlist.add(thread);
+        }catch (Exception e){
+          System.out.println("exception when copying config file");
+        }
+      }
+		}
+    try{
+      for(Thread t:tlist){
+        t.join();
+      }
+    }catch (Exception e){
+      e.printStackTrace();
+    }
+  }
 
   public static void getNetworkInfo(Slice s){
     //getLinks
@@ -282,7 +317,6 @@ public class Example {
     }
   }
 
-
 	public static Slice getSlice(ISliceTransportAPIv1 sliceProxy, String sliceName){
 		Slice s = null;
 		try {
@@ -305,7 +339,6 @@ public class Example {
 			Thread.currentThread().interrupt();
 		}
 	}
-
 
 	public static ISliceTransportAPIv1 getSliceProxy(String pem, String key, String controllerUrl){
 
