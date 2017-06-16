@@ -10,6 +10,6 @@ $./build.sh
 3. launch the cluster, run: ./launchsparkcluster.sh sliceNAME spark  #VM
 $./launchsparkcluster.sh sparkcluster1 spark 4 
 
-4. The master node of spark cluster lies in "node0", workers lie in "node1", "node2",etc.
+4. The master node of spark cluster lies in "node0", workers lie in "node1", "node2",etc. The ip addresses of each node in the slice is appended to "nodes.txt"
 To login into the container, login to the VM, and run:
 $docker exec -it sparkserver "/bin/bash"
